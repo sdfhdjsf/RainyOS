@@ -3,7 +3,7 @@
 
 //typedef __builtin_va_list va_list;
 
-typedef char* va_list;
+//typedef char* va_list;
 
 //#define va_start(ap, last)         (__builtin_va_start(ap, last))
 //#define va_arg(ap, type)           (__crt_va_arg(ap, type))
@@ -22,8 +22,16 @@ void __cdecl __va_start(va_list* , ...);
 #define __crt_va_start(ap, x) __crt_va_start_a(ap, x)
 
 #define __crt_va_end(ap)        ((void)(ap = (va_list)0))
+
+#ifndef __GNUC_VA_LIST
+#define __GNUC_VA_LIST
+typedef __builtin_va_list __gnuc_va_list;
+#endif
+
 //--------------------------------------------------------------------
 
+
+typedef __gnuc_va_list va_list;
 
 #define va_arg(ap, type)           (__crt_va_arg(ap, type))
 #define va_start __crt_va_start
